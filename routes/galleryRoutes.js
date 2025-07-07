@@ -75,17 +75,34 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+// router.post('/add', upload.single('image'), async (req, res) => {
+//   try {
+//     const { name } = req.body;
+//     const url = `/uploads/${req.file.filename}`;  // 👉 relative path!
+//     const img = await new GalleryImage({ name, imageUrl: url }).save();
+//     res.status(201).json(img);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Upload failed' });
+//   }
+// });
 router.post('/add', upload.single('image'), async (req, res) => {
   try {
     const { name } = req.body;
-    const url = `/uploads/${req.file.filename}`;  // 👉 relative path!
+
+    // 👇 This line sets the image URL (relative path)
+    const url = `/uploads/${req.file.filename}`;
+
+    // 👇 This line saves the image metadata to MongoDB
     const img = await new GalleryImage({ name, imageUrl: url }).save();
+
     res.status(201).json(img);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Upload failed' });
   }
 });
+
 
 router.get('/', async (req, res) => {
   const imgs = await GalleryImage.find().sort({ _id: -1 });
