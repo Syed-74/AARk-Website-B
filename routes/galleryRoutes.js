@@ -59,59 +59,60 @@
 
 
 
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const GalleryImage = require('../models/GalleryImage');
-const router = express.Router();
+// import express from "express";
+// import multer from "multer";
+// import path from "path";
+// import fs from "fs";
+// import GalleryImage from "..//GalleryImage.js";
+// import router from express.Router();
 
-const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
-});
-const upload = multer({ storage });
+// const uploadDir = path.join(__dirname, '../uploads');
+// if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, uploadDir),
+//   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+// });
+// const upload = multer({ storage });
+
+// // router.post('/add', upload.single('image'), async (req, res) => {
+// //   try {
+// //     const { name } = req.body;
+// //     const url = `/uploads/${req.file.filename}`;  // 👉 relative path!
+// //     const img = await new GalleryImage({ name, imageUrl: url }).save();
+// //     res.status(201).json(img);
+// //   } catch (err) {
+// //     console.error(err);
+// //     res.status(500).json({ message: 'Upload failed' });
+// //   }
+// // });
 // router.post('/add', upload.single('image'), async (req, res) => {
 //   try {
 //     const { name } = req.body;
-//     const url = `/uploads/${req.file.filename}`;  // 👉 relative path!
+
+//     // 👇 This line sets the image URL (relative path)
+//     const url = `/uploads/${req.file.filename}`;
+
+//     // 👇 This line saves the image metadata to MongoDB
 //     const img = await new GalleryImage({ name, imageUrl: url }).save();
+
 //     res.status(201).json(img);
 //   } catch (err) {
 //     console.error(err);
 //     res.status(500).json({ message: 'Upload failed' });
 //   }
 // });
-router.post('/add', upload.single('image'), async (req, res) => {
-  try {
-    const { name } = req.body;
-
-    // 👇 This line sets the image URL (relative path)
-    const url = `/uploads/${req.file.filename}`;
-
-    // 👇 This line saves the image metadata to MongoDB
-    const img = await new GalleryImage({ name, imageUrl: url }).save();
-
-    res.status(201).json(img);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Upload failed' });
-  }
-});
 
 
-router.get('/', async (req, res) => {
-  const imgs = await GalleryImage.find().sort({ _id: -1 });
-  res.json(imgs);
-});
+// router.get('/', async (req, res) => {
+//   const imgs = await GalleryImage.find().sort({ _id: -1 });
+//   res.json(imgs);
+// });
 
-router.delete('/:id', async (req, res) => {
-  await GalleryImage.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Deleted' });
-});
+// router.delete('/:id', async (req, res) => {
+//   await GalleryImage.findByIdAndDelete(req.params.id);
+//   res.json({ message: 'Deleted' });
+// });
 
-module.exports = router;
+// export default router;

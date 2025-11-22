@@ -1,7 +1,11 @@
 // backend/routes/consultationRoute.js
-const express = require("express");
-const nodemailer = require("nodemailer");
-require("dotenv").config();
+import express from "express";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+
+dotenv.config();
+
 
 const router = express.Router();
 
@@ -42,4 +46,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

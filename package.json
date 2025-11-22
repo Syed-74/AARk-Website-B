@@ -1,4 +1,11 @@
 {
+  "version": "1.0.0",
+  "name": "AARk-Website-B",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
